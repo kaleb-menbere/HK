@@ -1,11 +1,11 @@
 // src/pages/MenuPage.jsx
 import React, { useState } from 'react';
-import Header from '../components/Header';
-import CategoryNav from '../components/CategoryNav';
-import MenuItem from '../components/MenuItem/MenuItem';
-import CartSidebar from '../components/CartSidebar'; // Import from separate file
+import Header from '../../components/Header';
+import CategoryNav from '../../components/CategoryNav';
+import MenuItem from '../../components/MenuItem/MenuItem';
+import CartSidebar from '../../components/CartSidebar'; // Import from separate file
 import './MenuPage.css';
-import { useMenuData } from '../hooks/useMenuData';
+import { useMenuData } from '../../hooks/useMenuData';
 import { FiFilter, FiGrid, FiList, FiShoppingCart } from 'react-icons/fi';
 import { FaPhoneAlt } from 'react-icons/fa';
 

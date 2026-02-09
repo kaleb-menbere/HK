@@ -1,33 +1,43 @@
-// Updated App.jsx with HashRouter and proper loading
+// src/App.jsx
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import MenuPage from './pages/MenuPage';
-import AboutPage from './pages/AboutPage';
-import GalleryPage from './pages/GalleryPage';
-import ContactPage from './pages/ContactPage';
-import AdminLogin from './pages/AdminLogin';
-import AdminDashboard from './pages/AdminDashboard';
+import MenuPage from './pages/User/MenuPage';
+import AboutPage from './pages/User/AboutPage';
+import GalleryPage from './pages/User/GalleryPage';
+import ContactPage from './pages/User/ContactPage';
+import AdminLogin from './pages/Admin/AdminLogin';
+import AdminDashboard from './pages/Admin/AdminDashboard';
+import AdminCategories from './pages/Admin/AdminCategories';
+import AdminItems from './pages/Admin/AdminItems';
+import AdminSettings from './pages/Admin/AdminSettings';
 import NotFoundPage from './pages/NotFoundPage';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import './App.css';
 
-// Scroll to top on hash change
+// Component to handle scrolling on hash change
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    // Scroll to top when pathname changes (hash changes)
-    window.scrollTo(0, 0);
-    
-    // If there's a hash in the URL, scroll to that element
+    // If there's a hash in the URL
     if (hash) {
-      const id = hash.replace('#', '');
       setTimeout(() => {
+        const id = hash.replace('#', '');
         const element = document.getElementById(id);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+          const offset = 100; // Adjust for fixed header
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - offset;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
         }
       }, 100);
+    } else {
+      // Scroll to top on page navigation
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [pathname, hash]);
 
@@ -36,56 +46,25 @@ const ScrollToTop = () => {
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // Simulate initial app loading
-    const loadingTimer = setTimeout(() => {
+    // Simulate loading time
+    const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 1500);
 
-    // Mark app as mounted
-    setIsMounted(true);
-
-    // Handle page visibility
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        setIsLoading(true);
-        setTimeout(() => setIsLoading(false), 500);
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-
-    // Listen for hash changes to handle loading state
-    const handleHashChange = () => {
-      // You can add loading logic here if needed
-    };
-
-    window.addEventListener('hashchange', handleHashChange);
-
-    return () => {
-      clearTimeout(loadingTimer);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('hashchange', handleHashChange);
-    };
+    return () => clearTimeout(timer);
   }, []);
-
-  if (!isMounted) {
-    return null;
-  }
 
   return (
     <Router>
       <ScrollToTop />
       <div className="App">
-        {/* Full-page Loading Screen */}
-        {isLoading && <LoadingScreen />}
-        
-        {/* Main Content */}
-        <div className={`app-content ${isLoading ? 'app-content--hidden' : ''}`}>
+        {isLoading ? (
+          <LoadingScreen />
+        ) : (
           <Routes>
-            {/* Main Routes - Note: With HashRouter, paths work differently */}
+            {/* User Routes */}
             <Route path="/" element={<MenuPage />} />
             <Route path="/menu" element={<MenuPage />} />
             <Route path="/about" element={<AboutPage />} />
@@ -95,11 +74,14 @@ function App() {
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/categories" element={<AdminCategories />} />
+            <Route path="/admin/items" element={<AdminItems />} />
+            <Route path="/admin/settings" element={<AdminSettings />} />
             
-            {/* 404 Page - This will match any unmatched hash paths */}
+            {/* 404 Page */}
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
-        </div>
+        )}
       </div>
     </Router>
   );

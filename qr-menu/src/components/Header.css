@@ -703,3 +703,165 @@ html {
   white-space: nowrap;
   border: 0;
 }
+
+/* src/components/Header.css */
+/* Add these styles to your existing Header.css */
+
+.grm-nav-icon {
+  display: none;
+  font-size: 1.1rem;
+  margin-right: 8px;
+}
+
+.grm-nav-label {
+  display: inline-block;
+}
+
+/* For mobile, show icons */
+@media (max-width: 768px) {
+  .grm-nav-icon {
+    display: inline-block;
+  }
+  
+  .grm-nav-link {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+  }
+}
+
+/* Active link styles */
+.grm-nav-active {
+  color: #ff6b35 !important;
+  font-weight: 600;
+  position: relative;
+}
+
+.grm-nav-active .grm-nav-icon {
+  color: #ff6b35;
+}
+
+.grm-nav-indicator {
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  background: #ff6b35;
+  border-radius: 50%;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* For mobile navigation */
+@media (max-width: 768px) {
+  .grm-nav-indicator {
+    position: static;
+    transform: none;
+    width: 4px;
+    height: 20px;
+    border-radius: 2px;
+    margin-left: auto;
+  }
+}
+
+/* Update cart styles */
+.grm-cart-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.grm-cart-button {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: rgba(255, 107, 53, 0.1);
+  color: #ff6b35;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.grm-cart-button:hover {
+  background: rgba(255, 107, 53, 0.2);
+  transform: translateY(-2px);
+}
+
+.grm-cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ff6b35;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mobile menu improvements */
+.grm-nav-open .grm-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.grm-mobile-contact {
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.grm-mobile-contact-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.grm-mobile-contact-link:hover {
+  color: #ff6b35;
+}
+
+.grm-mobile-cart {
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hide desktop cart label on mobile */
+@media (max-width: 768px) {
+  .grm-cart-label {
+    display: none;
+  }
+  
+  .grm-cart-container {
+    margin-right: 10px;
+  }
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

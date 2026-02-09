@@ -1,5 +1,5 @@
-import ItemForm from "../components/Admin/ItemForm";
-import MenuItem from "../components/MenuItem/MenuItem";
+import ItemForm from "../../components/Admin/ItemForm";
+import MenuItem from "../../components/MenuItem/MenuItem";
 import "./AdminItems.css";
 
 function AdminItems({ items, onSave }) {

@@ -1,6 +1,6 @@
 // src/pages/AboutPage.jsx
 import React from 'react';
-import Header from '../components/Header';
+import Header from '../../components/Header';
 import './AboutPage.css';
 import { FaUsers, FaAward, FaLeaf, FaClock, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import { GiChefToque } from 'react-icons/gi';

@@ -1,4 +1,4 @@
-import DashboardStats from "../components/Admin/DashboardStats";
+import DashboardStats from "../../components/Admin/DashboardStats";
 import "./AdminDashboard.css";
 
 function AdminDashboard({ totalItems, totalCategories }) {

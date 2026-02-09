@@ -1,4 +1,4 @@
-import CategoryForm from "../components/Admin/CategoryForm";
+import CategoryForm from "../../components/Admin/CategoryForm";
 import "./AdminCategories.css";
 
 function AdminCategories({ categories, onSave }) {

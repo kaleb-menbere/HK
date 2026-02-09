@@ -1,6 +1,6 @@
 // src/pages/GalleryPage.jsx
 import React, { useState } from 'react';
-import Header from '../components/Header';
+import Header from '../../components/Header';
 import './GalleryPage.css';
 import { FiSearch, FiGrid, FiList, FiFilter, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 

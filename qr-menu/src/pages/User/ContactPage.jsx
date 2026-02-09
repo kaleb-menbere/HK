@@ -1,6 +1,6 @@
 // src/pages/ContactPage.jsx
 import React, { useState } from 'react';
-import Header from '../components/Header';
+import Header from '../../components/Header';
 import './ContactPage.css';
 import { FaPhoneAlt, FaMapMarkerAlt, FaClock, FaEnvelope, FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { FiSend } from 'react-icons/fi';

@@ -1,29 +1,56 @@
 // src/components/Header.jsx
 import React, { useState, useEffect, useRef } from 'react';
-import { useLocation, Link } from 'react-router-dom'; // Keep Link for potential use
+import { useLocation } from 'react-router-dom';
 import './Header.css';
 import { FiShoppingCart, FiMenu, FiX } from 'react-icons/fi';
-import { FaPhoneAlt, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
+import { FaPhoneAlt, FaMapMarkerAlt, FaClock, FaHome, FaUtensils, FaInfoCircle, FaImages, FaEnvelope } from 'react-icons/fa';
 
 const Header = ({ cartCount = 0 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activePath, setActivePath] = useState('#/');
   const mobileMenuRef = useRef(null);
   const lastScrollY = useRef(0);
   const location = useLocation();
+
+  // Update active path based on hash
+  useEffect(() => {
+    const updateActivePath = () => {
+      const currentHash = window.location.hash;
+      setActivePath(currentHash || '#/');
+    };
+
+    // Initial update
+    updateActivePath();
+
+    // Listen for hash changes
+    const handleHashChange = () => {
+      updateActivePath();
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
+
+  // Also update when location changes (for React Router)
+  useEffect(() => {
+    const currentHash = window.location.hash;
+    setActivePath(currentHash || '#/');
+  }, [location]);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       
-      // Check if scrolled past 50px
       if (currentScrollY > 50) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
       
-      // Close mobile menu on scroll
       if (isMobileMenuOpen && Math.abs(currentScrollY - lastScrollY.current) > 10) {
         setIsMobileMenuOpen(false);
       }
@@ -31,7 +58,6 @@ const Header = ({ cartCount = 0 }) => {
       lastScrollY.current = currentScrollY;
     };
 
-    // Close mobile menu when clicking outside
     const handleClickOutside = (event) => {
       if (isMobileMenuOpen && 
           mobileMenuRef.current && 
@@ -41,7 +67,6 @@ const Header = ({ cartCount = 0 }) => {
       }
     };
 
-    // Prevent body scroll when mobile menu is open
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -62,34 +87,44 @@ const Header = ({ cartCount = 0 }) => {
 
   const contactInfo = [
     { icon: <FaPhoneAlt />, text: 'Call: (+1) 555-1234', href: 'tel:+15551234' },
-    { icon: <FaMapMarkerAlt />, text: '123 Food Street, New York', href: '#contact' },
-    { icon: <FaClock />, text: 'Open: Mon-Sun 8AM - 10PM', href: '#contact' }
+    { icon: <FaMapMarkerAlt />, text: '123 Food Street, New York', href: '#/contact' },
+    { icon: <FaClock />, text: 'Open: Mon-Sun 8AM - 10PM', href: '#/contact' }
   ];
 
   const navItems = [
-    { label: 'Our Menu', path: '#/' },
-    { label: 'About Us', path: '#/about' },
-    { label: 'Gallery', path: '#/gallery' },
-    { label: 'Contact', path: '#/contact' }
+    { 
+      label: 'OUR Menu', 
+      path: '#/menu', 
+      icon: <FaUtensils /> 
+    },
+    { 
+      label: 'About', 
+      path: '#/about', 
+      icon: <FaInfoCircle /> 
+    },
+    { 
+      label: 'Gallery', 
+      path: '#/gallery', 
+      icon: <FaImages /> 
+    },
+    { 
+      label: 'Contact', 
+      path: '#/contact', 
+      icon: <FaEnvelope /> 
+    }
   ];
 
-  // Check if a nav item is active based on current hash
   const isActive = (path) => {
-    const currentHash = location.hash || '#/';
-    
-    // Special case for home/menu page
-    if (path === '#/' && (currentHash === '#/' || currentHash === '')) {
-      return true;
+    // For home page, check both #/ and empty hash
+    if (path === '#/') {
+      return activePath === '#/' || activePath === '';
     }
-    
-    return currentHash === path;
+    return activePath === path;
   };
 
-  // Handle navigation click
   const handleNavClick = (path) => {
     setIsMobileMenuOpen(false);
-    // The hash will automatically update the URL
-    // Scroll to top when navigating
+    // Scroll to top on navigation
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -114,7 +149,7 @@ const Header = ({ cartCount = 0 }) => {
                   }}
                 >
                   <span className="grm-contact-icon">{item.icon}</span>
-                  <span className="grm-contact-label">{item.label || item.text}</span>
+                  <span className="grm-contact-label">{item.text}</span>
                 </a>
               ))}
             </div>
@@ -141,7 +176,7 @@ const Header = ({ cartCount = 0 }) => {
               </a>
             </div>
 
-            {/* Navigation */}
+            {/* Desktop Navigation */}
             <nav 
               ref={mobileMenuRef}
               className={`grm-navigation ${isMobileMenuOpen ? 'grm-nav-open' : ''}`}
@@ -157,7 +192,8 @@ const Header = ({ cartCount = 0 }) => {
                       onClick={() => handleNavClick(item.path)}
                       aria-current={isActive(item.path) ? 'page' : undefined}
                     >
-                      {item.label}
+                      <span className="grm-nav-icon">{item.icon}</span>
+                      <span className="grm-nav-label">{item.label}</span>
                       {isActive(item.path) && (
                         <span className="grm-nav-indicator" aria-hidden="true"></span>
                       )}
@@ -182,7 +218,7 @@ const Header = ({ cartCount = 0 }) => {
                     }}
                   >
                     <span className="grm-contact-icon">{item.icon}</span>
-                    <span className="grm-contact-label">{item.label || item.text}</span>
+                    <span className="grm-contact-label">{item.text}</span>
                   </a>
                 ))}
               </div>
