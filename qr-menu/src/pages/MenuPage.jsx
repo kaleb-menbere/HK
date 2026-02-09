@@ -109,22 +109,22 @@ const MenuPage = () => {
       <div className="mnp-controls">
         <div className="gnr-container">
           <div className="mnp-controls__content">
-            <div className="mnp-view-toggle">
-              <button 
-                className={`mnp-view-btn ${viewMode === 'grid' ? 'mnp-view-btn--active' : ''}`}
-                onClick={() => setViewMode('grid')}
-              >
-                <FiGrid />
-                <span>Grid</span>
-              </button>
-              <button 
-                className={`mnp-view-btn ${viewMode === 'list' ? 'mnp-view-btn--active' : ''}`}
-                onClick={() => setViewMode('list')}
-              >
-                <FiList />
-                <span>List</span>
-              </button>
-            </div>
+        <div className="mnp-view-toggle" data-view-mode={viewMode}>
+          <button 
+            className={`mnp-view-btn ${viewMode === 'grid' ? 'mnp-view-btn--active' : ''}`}
+            onClick={() => setViewMode('grid')}
+          >
+            <FiGrid />
+            <span>Grid</span>
+          </button>
+          <button 
+            className={`mnp-view-btn ${viewMode === 'list' ? 'mnp-view-btn--active' : ''}`}
+            onClick={() => setViewMode('list')}
+          >
+            <FiList />
+            <span>List</span>
+          </button>
+        </div>
             
             <div className="mnp-sort">
               <FiFilter className="mnp-sort__icon" />
