@@ -175,7 +175,8 @@ const Header = ({ cartCount = 0 }) => {
                 <span className="grm-logo-sub">RESTAURANT</span>
               </a>
             </div>
-
+            <br></br>
+                <br></br>
             {/* Desktop Navigation */}
             <nav 
               ref={mobileMenuRef}
