@@ -1,0 +1,14 @@
+.admin-items-page {
+  max-width: 600px;
+  margin: 24px auto;
+  padding: 16px;
+}
+
+.admin-items-page h2 {
+  color: #27ae60;
+  margin-bottom: 16px;
+}
+
+.items-list {
+  margin-top: 16px;
+}

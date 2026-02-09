@@ -1,0 +1,20 @@
+.admin-categories-page {
+  max-width: 600px;
+  margin: 24px auto;
+  padding: 16px;
+}
+
+.admin-categories-page h2 {
+  color: #27ae60;
+  margin-bottom: 16px;
+}
+
+.categories-list {
+  margin-top: 16px;
+  padding-left: 20px;
+}
+
+.categories-list li {
+  margin-bottom: 8px;
+  font-size: 16px;
+}

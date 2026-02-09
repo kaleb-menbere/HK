@@ -1,0 +1,15 @@
+.admin-settings-page {
+  max-width: 600px;
+  margin: 24px auto;
+  padding: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.admin-settings-page h2 {
+  color: #27ae60;
+  margin-bottom: 16px;
+}
+
+.admin-settings-page p {
+  color: #555;
+}

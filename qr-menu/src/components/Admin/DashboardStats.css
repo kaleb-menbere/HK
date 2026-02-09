@@ -1,0 +1,27 @@
+.dashboard-stats {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.stat-card h3 {
+  color: #27ae60;
+  margin: 0;
+  font-size: 22px;
+}
+
+.stat-card p {
+  color: #555;
+  margin-top: 4px;
+  font-size: 14px;
+}
