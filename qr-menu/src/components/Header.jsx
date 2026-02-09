@@ -1,5 +1,6 @@
 // src/components/Header.jsx
 import React, { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import './Header.css';
 import { FiShoppingCart, FiMenu, FiX } from 'react-icons/fi';
 import { FaPhoneAlt, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
@@ -9,6 +10,7 @@ const Header = ({ cartCount = 0 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const mobileMenuRef = useRef(null);
   const lastScrollY = useRef(0);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,12 +67,21 @@ const Header = ({ cartCount = 0 }) => {
   ];
 
   const navItems = [
-    { label: 'Home', path: '/', active: true },
+    // Home removed since Menu is the main page
     { label: 'Our Menu', path: '/menu' },
     { label: 'About Us', path: '/about' },
     { label: 'Gallery', path: '/gallery' },
     { label: 'Contact', path: '/contact' }
   ];
+
+  // Check if a nav item is active based on current path
+  const isActive = (path) => {
+    // For the menu page which is the default/home page
+    if (path === '/menu' && (location.pathname === '/' || location.pathname === '/menu')) {
+      return true;
+    }
+    return location.pathname === path;
+  };
 
   return (
     <>
@@ -96,10 +107,10 @@ const Header = ({ cartCount = 0 }) => {
           <div className="grm-header-content">
             {/* Logo */}
             <div className="grm-logo-section">
-              <div className="grm-logo">
+              <a href="/" className="grm-logo">
                 <span className="grm-logo-main">Gourmet</span>
                 <span className="grm-logo-sub">RESTAURANT</span>
-              </div>
+              </a>
             </div>
 
             {/* Navigation */}
@@ -108,22 +119,15 @@ const Header = ({ cartCount = 0 }) => {
               className={`grm-navigation ${isMobileMenuOpen ? 'grm-nav-open' : ''}`}
               aria-hidden={!isMobileMenuOpen}
             >
-              <div className="grm-mobile-menu-header">
-                <div className="grm-mobile-logo">
-                  {/* <span className="grm-logo-main">Gourmet</span>
-                  <span className="grm-logo-sub">RESTAURANT</span> */}
-                </div>
-                <br></br><br></br>
-              </div>
               
               <ul className="grm-nav-list">
                 {navItems.map((item, index) => (
                   <li key={index} className="grm-nav-item">
                     <a 
                       href={item.path} 
-                      className={`grm-nav-link ${item.active ? 'grm-nav-active' : ''}`}
+                      className={`grm-nav-link ${isActive(item.path) ? 'grm-nav-active' : ''}`}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      aria-current={item.active ? 'page' : undefined}
+                      aria-current={isActive(item.path) ? 'page' : undefined}
                     >
                       {item.label}
                     </a>
@@ -141,7 +145,7 @@ const Header = ({ cartCount = 0 }) => {
               </div>
               
               <div className="grm-mobile-cart">
-                <button className="grm-cart-button">
+                <button className="grm-cart-button" onClick={() => setIsMobileMenuOpen(false)}>
                   <FiShoppingCart className="grm-cart-icon" />
                   <span className="grm-cart-label">View Cart</span>
                   {cartCount > 0 && (

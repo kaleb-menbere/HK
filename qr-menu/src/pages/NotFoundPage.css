@@ -1,0 +1,122 @@
+/* src/pages/NotFoundPage.css */
+.nfp-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+}
+
+.nfp-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 200px);
+  padding: 4rem 0;
+}
+
+.nfp-content {
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 25px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.nfp-icon {
+  font-size: 5rem;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.nfp-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: #333;
+  line-height: 1.2;
+}
+
+.nfp-text {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.nfp-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.nfp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  min-width: 160px;
+}
+
+.nfp-btn--primary {
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8e53 100%);
+  color: white;
+}
+
+.nfp-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
+}
+
+.nfp-btn--secondary {
+  background: transparent;
+  color: #333;
+  border: 2px solid #e0e0e0;
+}
+
+.nfp-btn--secondary:hover {
+  background: #f8f9fa;
+  border-color: #bbb;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nfp-content {
+    padding: 3rem 1.5rem;
+  }
+  
+  .nfp-title {
+    font-size: 2rem;
+  }
+  
+  .nfp-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .nfp-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nfp-content {
+    padding: 2.5rem 1.5rem;
+  }
+  
+  .nfp-title {
+    font-size: 1.8rem;
+  }
+  
+  .nfp-text {
+    font-size: 1rem;
+  }
+}

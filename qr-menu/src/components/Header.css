@@ -109,6 +109,12 @@
   align-items: flex-start;
   cursor: pointer;
   padding: 5px 0;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.grm-logo:hover {
+  transform: scale(1.02);
 }
 
 .grm-logo-main {
@@ -168,9 +174,13 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-.grm-nav-link:hover,
+.grm-nav-link:hover {
+  color: #ff6b35;
+}
+
 .grm-nav-active {
   color: #ff6b35;
+  font-weight: 700;
 }
 
 .grm-nav-active::after {
@@ -303,17 +313,13 @@
 /* MOBILE MENU STYLES */
 .grm-mobile-menu-header {
   display: none;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   padding: 20px;
-  border-bottom: 1px solid rgba(255, 107, 53, 0.1);
-  margin-bottom: 30px;
-}
-
-.grm-mobile-logo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
 }
 
 .grm-mobile-close {
@@ -325,6 +331,9 @@
   padding: 8px;
   border-radius: 50%;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .grm-mobile-close:hover {
@@ -440,10 +449,6 @@
   
   .grm-mobile-menu-header {
     display: flex;
-    position: sticky;
-    top: 0;
-    background: white;
-    z-index: 1;
   }
   
   .grm-nav-list {
@@ -453,6 +458,7 @@
     padding: 20px;
     flex: 1;
     justify-content: center;
+    margin-top: 40px;
   }
   
   .grm-nav-link {
