@@ -2,9 +2,9 @@
 import React from 'react';
 import Header from '../components/Header';
 import './AboutPage.css';
-import { FaUsers, FaAward, FaLeaf, FaClock } from 'react-icons/fa';
+import { FaUsers, FaAward, FaLeaf, FaClock, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import { GiChefToque } from 'react-icons/gi';
-import { MdRestaurantMenu } from 'react-icons/md';
+import { MdRestaurantMenu, MdEmail } from 'react-icons/md';
 
 const AboutPage = () => {
   const teamMembers = [
@@ -54,6 +54,29 @@ const AboutPage = () => {
     }
   ];
 
+  const awards = [
+    {
+      year: '2023',
+      title: 'Best Fine Dining',
+      source: 'Food & Wine Magazine'
+    },
+    {
+      year: '2022',
+      title: 'Excellence in Service',
+      source: 'Restaurant Association'
+    },
+    {
+      year: '2023',
+      title: 'Top 10 Restaurants',
+      source: 'City Dining Guide'
+    },
+    {
+      year: '2022',
+      title: 'Best Wine Selection',
+      source: 'Wine Enthusiast'
+    }
+  ];
+
   return (
     <div className="abp-page">
       <Header />
@@ -62,34 +85,49 @@ const AboutPage = () => {
       <section className="abp-hero">
         <div className="abp-hero__overlay"></div>
         <div className="abp-hero__content">
-          <h1 className="abp-hero__title">Our Story</h1>
-          <p className="abp-hero__subtitle">Serving exceptional food since 1995</p>
+          <div className="abp-hero__badge">Since 1995</div>
+          <h1 className="abp-hero__title">Crafting Memorable Dining Experiences</h1>
+          <p className="abp-hero__subtitle">Where passion meets perfection on every plate</p>
         </div>
       </section>
 
       {/* Story Section */}
-      <section className="abp-story">
+      <section className="abp-story" id="our-story">
         <div className="gnr-container">
+          <div className="abp-section-header">
+            <h2 className="abp-section-title">Our Journey</h2>
+            <p className="abp-section-subtitle">From humble beginnings to culinary excellence</p>
+          </div>
           <div className="abp-story__content">
-            <div className="abp-story__text">
-              <h2 className="abp-story__title">Welcome to Gourmet Restaurant</h2>
-              <p className="abp-story__description">
-                Founded in 1995, Gourmet Restaurant began as a small family-owned bistro with a simple mission: 
-                to serve delicious, high-quality food in a warm and welcoming atmosphere. Over the years, we've 
-                grown into a beloved dining destination, but our commitment to quality and hospitality remains unchanged.
-              </p>
-              <p className="abp-story__description">
-                Our philosophy is simple: great food starts with great ingredients. That's why we work closely 
-                with local farmers and suppliers to bring you the freshest seasonal produce, meats, and seafood. 
-                Every dish on our menu is carefully crafted by our talented chefs, who blend traditional techniques 
-                with modern creativity.
-              </p>
-            </div>
             <div className="abp-story__image">
-              <img 
-                src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                alt="Restaurant interior" 
-              />
+              <div className="abp-story__image-frame">
+                <img 
+                  src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                  alt="Restaurant interior" 
+                />
+              </div>
+            </div>
+            <div className="abp-story__text">
+              <div className="abp-story__year">1995</div>
+              <h3 className="abp-story__title">A Family Dream</h3>
+              <p className="abp-story__description">
+                What began as a small family-owned bistro has blossomed into a culinary landmark. 
+                Our founder's vision was simple: create a space where food is more than sustenance—it's an experience.
+              </p>
+              <div className="abp-story__stats">
+                <div className="abp-story__stat">
+                  <span className="abp-story__stat-number">25+</span>
+                  <span className="abp-story__stat-label">Years of Excellence</span>
+                </div>
+                <div className="abp-story__stat">
+                  <span className="abp-story__stat-number">50+</span>
+                  <span className="abp-story__stat-label">Local Suppliers</span>
+                </div>
+              </div>
+              <p className="abp-story__description">
+                Today, we continue to honor our roots while embracing innovation. Every dish tells a story, 
+                and every meal is an opportunity to create lasting memories.
+              </p>
             </div>
           </div>
         </div>
@@ -98,15 +136,19 @@ const AboutPage = () => {
       {/* Values Section */}
       <section className="abp-values">
         <div className="gnr-container">
-          <h2 className="abp-values__title">Our Values</h2>
+          <div className="abp-section-header">
+            <h2 className="abp-section-title">Our Philosophy</h2>
+            <p className="abp-section-subtitle">The principles that guide every plate we serve</p>
+          </div>
           <div className="abp-values__grid">
             {values.map((value, index) => (
-              <div key={index} className="abp-value__card">
-                <div className="abp-value__icon">
+              <div key={index} className="abp-value__card" data-aos="fade-up">
+                <div className="abp-value__icon-wrapper">
                   {value.icon}
                 </div>
                 <h3 className="abp-value__title">{value.title}</h3>
                 <p className="abp-value__description">{value.description}</p>
+                <div className="abp-value__decorative-line"></div>
               </div>
             ))}
           </div>
@@ -116,13 +158,16 @@ const AboutPage = () => {
       {/* Team Section */}
       <section className="abp-team">
         <div className="gnr-container">
-          <h2 className="abp-team__title">Meet Our Team</h2>
-          <p className="abp-team__subtitle">The talented individuals behind your dining experience</p>
+          <div className="abp-section-header">
+            <h2 className="abp-section-title">Meet The Masters</h2>
+            <p className="abp-section-subtitle">The passionate team behind your dining experience</p>
+          </div>
           <div className="abp-team__grid">
             {teamMembers.map(member => (
-              <div key={member.id} className="abp-team__member">
+              <div key={member.id} className="abp-team__member" data-aos="fade-up">
                 <div className="abp-team__image">
                   <img src={member.image} alt={member.name} />
+                  <div className="abp-team__image-overlay"></div>
                 </div>
                 <div className="abp-team__info">
                   <h3 className="abp-team__name">{member.name}</h3>
@@ -138,60 +183,75 @@ const AboutPage = () => {
       {/* Awards Section */}
       <section className="abp-awards">
         <div className="gnr-container">
-          <h2 className="abp-awards__title">Awards & Recognition</h2>
-          <div className="abp-awards__list">
-            <div className="abp-award">
-              <FaAward className="abp-award__icon" />
-              <h3>Best Fine Dining 2023</h3>
-              <p>Food & Wine Magazine</p>
-            </div>
-            <div className="abp-award">
-              <FaAward className="abp-award__icon" />
-              <h3>Excellence in Service</h3>
-              <p>Restaurant Association</p>
-            </div>
-            <div className="abp-award">
-              <FaAward className="abp-award__icon" />
-              <h3>Top 10 Restaurants</h3>
-              <p>City Dining Guide</p>
-            </div>
-            <div className="abp-award">
-              <FaAward className="abp-award__icon" />
-              <h3>Best Wine Selection</h3>
-              <p>Wine Enthusiast</p>
-            </div>
+          <div className="abp-section-header">
+            <h2 className="abp-section-title">Recognition & Awards</h2>
+            <p className="abp-section-subtitle">Celebrating excellence in culinary arts</p>
+          </div>
+          <div className="abp-awards__grid">
+            {awards.map((award, index) => (
+              <div key={index} className="abp-award__card" data-aos="fade-up">
+                <div className="abp-award__header">
+                  <FaAward className="abp-award__icon" />
+                  <span className="abp-award__year">{award.year}</span>
+                </div>
+                <h3 className="abp-award__title">{award.title}</h3>
+                <p className="abp-award__source">{award.source}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Hours Section */}
-      <section className="abp-hours">
+      {/* Contact Section */}
+      <section className="abp-contact">
         <div className="gnr-container">
-          <div className="abp-hours__content">
-            <div className="abp-hours__info">
-              <h2 className="abp-hours__title">Visit Us</h2>
-              <div className="abp-hours__item">
-                <FaClock className="abp-hours__icon" />
-                <div>
-                  <h3>Opening Hours</h3>
-                  <p>Monday - Friday: 11:00 AM - 10:00 PM</p>
-                  <p>Saturday - Sunday: 10:00 AM - 11:00 PM</p>
+          <div className="abp-contact__content">
+            <div className="abp-contact__info">
+              <h2 className="abp-contact__title">Visit Our Home</h2>
+              <p className="abp-contact__description">
+                We welcome you to experience our warm atmosphere, exceptional service, and unforgettable cuisine.
+              </p>
+              
+              <div className="abp-contact__details">
+                <div className="abp-contact__detail">
+                  <FaMapMarkerAlt className="abp-contact__icon" />
+                  <div>
+                    <h4>Location</h4>
+                    <p>123 Gourmet Street</p>
+                    <p>Food City, FC 10001</p>
+                  </div>
                 </div>
-              </div>
-              <div className="abp-hours__item">
-                <FaUsers className="abp-hours__icon" />
-                <div>
-                  <h3>Reservations</h3>
-                  <p>We recommend booking in advance for weekends</p>
-                  <p>Call: (555) 123-4567</p>
+                
+                <div className="abp-contact__detail">
+                  <FaClock className="abp-contact__icon" />
+                  <div>
+                    <h4>Opening Hours</h4>
+                    <p><strong>Mon - Fri:</strong> 11:00 AM - 10:00 PM</p>
+                    <p><strong>Sat - Sun:</strong> 10:00 AM - 11:00 PM</p>
+                  </div>
+                </div>
+                
+                <div className="abp-contact__detail">
+                  <FaPhone className="abp-contact__icon" />
+                  <div>
+                    <h4>Reservations</h4>
+                    <p>(555) 123-4567</p>
+                    <p>reservations@gourmet.com</p>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="abp-hours__map">
-              <div className="abp-hours__map-placeholder">
-                <h3>Our Location</h3>
-                <p>123 Gourmet Street, Food City, FC 10001</p>
-                <p>Parking available in the adjacent lot</p>
+            
+            <div className="abp-contact__map">
+              <div className="abp-contact__map-frame">
+                <div className="abp-contact__map-overlay">
+                  <FaMapMarkerAlt className="abp-contact__map-pin" />
+                  <div className="abp-contact__map-tooltip">
+                    <h4>Find Us Here</h4>
+                    <p>Free parking available</p>
+                    <p>Wheelchair accessible</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

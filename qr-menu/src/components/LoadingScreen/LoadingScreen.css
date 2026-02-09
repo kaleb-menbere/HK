@@ -1,0 +1,168 @@
+/* Create src/components/LoadingScreen/LoadingScreen.css */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.loading-screen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M0,50 Q25,40 50,50 T100,50" fill="none" stroke="rgba(255,107,53,0.05)" stroke-width="2"/><path d="M0,30 Q25,20 50,30 T100,30" fill="none" stroke="rgba(255,107,53,0.03)" stroke-width="2"/><path d="M0,70 Q25,60 50,70 T100,70" fill="none" stroke="rgba(255,107,53,0.03)" stroke-width="2"/></svg>');
+  opacity: 0.3;
+}
+
+.loading-screen__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 500px;
+  padding: 40px;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.loading-screen__logo {
+  margin-bottom: 50px;
+  animation: slideDown 0.8s ease-out;
+}
+
+.loading-screen__logo-icon {
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+
+.loading-screen__logo-text {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #ff6b35, #ff8e53);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.loading-screen__spinner {
+  margin: 40px 0;
+  animation: fadeIn 1s ease-out 0.3s both;
+}
+
+.loading-screen__message {
+  margin-bottom: 40px;
+  animation: fadeIn 1s ease-out 0.6s both;
+}
+
+.loading-screen__text {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 15px;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.loading-screen__progress {
+  width: 200px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.loading-screen__progress-bar {
+  height: 100%;
+  width: 30%;
+  background: linear-gradient(90deg, #ff6b35, #ff8e53);
+  border-radius: 2px;
+  animation: progressAnimation 2s ease-in-out infinite;
+}
+
+.loading-screen__slogan {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+  animation: fadeIn 1s ease-out 0.9s both;
+}
+
+.loading-screen__slogan p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-style: italic;
+  letter-spacing: 1px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+@keyframes progressAnimation {
+  0%, 100% {
+    transform: translateX(-100%);
+    width: 30%;
+  }
+  50% {
+    transform: translateX(100%);
+    width: 40%;
+  }
+  100% {
+    transform: translateX(300%);
+    width: 30%;
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .loading-screen__content {
+    padding: 20px;
+    max-width: 90%;
+  }
+  
+  .loading-screen__logo-text {
+    font-size: 2rem;
+  }
+  
+  .loading-screen__text {
+    font-size: 1rem;
+  }
+}
