@@ -164,21 +164,23 @@
   padding: 3rem 0;
 }
 
-/* Menu Display */
+/* Menu Display - GRID VIEW */
 .mnp-items {
   margin-top: 2rem;
 }
 
+/* GRID VIEW - Mobile first: 3 columns on mobile */
 .mnp-items--grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns on mobile */
+  gap: 8px; /* Smaller gap for 3 columns */
 }
 
+/* LIST VIEW */
 .mnp-items--list {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 /* Loading & Error States */
@@ -566,18 +568,90 @@
   transform: translateY(-2px);
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
+/* RESPONSIVE DESIGN */
+
+/* Very small phones (under 374px) - 2 columns */
+@media (max-width: 374px) {
+  .mnp-items--grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+  
+  .mit-item--grid {
+    min-height: 180px;
+  }
+  
+  .mit-item--grid .mit-item__name {
+    font-size: 0.7rem;
+  }
+  
+  .mit-item--grid .mit-item__price {
+    font-size: 0.8rem;
+  }
+  
+  .mit-item--grid .mit-item__add-btn {
+    padding: 4px 6px;
+    min-height: 28px;
+  }
+}
+
+/* Mobile (375px - 639px) - 3 columns */
+@media (min-width: 375px) and (max-width: 639px) {
+  .mnp-items--grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+}
+
+/* Tablet (640px - 767px) - 2 columns */
+@media (min-width: 640px) and (max-width: 767px) {
+  .mnp-items--grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .mnp-items--list {
+    gap: 1.25rem;
+  }
+}
+
+/* Tablet Large (768px - 1023px) - 3 columns */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .mnp-items--grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  
   .mnp-hero__title {
     font-size: 3rem;
   }
   
-  .mnp-items--grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
+  .mnp-controls {
+    top: 110px;
   }
 }
 
+/* Desktop (1024px - 1279px) - 3 columns */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .mnp-items--grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .mnp-hero__title {
+    font-size: 3rem;
+  }
+}
+
+/* Large Desktop (1280px and above) - 4 columns */
+@media (min-width: 1280px) {
+  .mnp-items--grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Responsive adjustments for other elements */
 @media (max-width: 768px) {
   .mnp-hero__title {
     font-size: 2.5rem;
@@ -608,10 +682,6 @@
   
   .mnp-sort {
     justify-content: center;
-  }
-  
-  .mnp-items--grid {
-    grid-template-columns: 1fr;
   }
   
   .mnp-footer__actions {
