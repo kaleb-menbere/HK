@@ -105,7 +105,6 @@ const Header = ({ cartCount = 0 }) => {
     { 
       label: 'Gallery', 
       path: '#/gallery', 
-      icon: <FaImages /> 
     },
     { 
       label: 'Contact', 
@@ -130,7 +129,7 @@ const Header = ({ cartCount = 0 }) => {
 
   return (
     <>
-      {/* Contact Bar */}
+      {/* Contact Bar - Hidden on Mobile */}
       <div className={`grm-header-contact ${isMobileMenuOpen ? 'grm-contact-hidden' : ''}`}>
         <div className="grm-header-container">
           <div className="grm-contact-wrapper">
@@ -175,8 +174,7 @@ const Header = ({ cartCount = 0 }) => {
                 <span className="grm-logo-sub">RESTAURANT</span>
               </a>
             </div>
-            <br></br>
-                <br></br>
+
             {/* Desktop Navigation */}
             <nav 
               ref={mobileMenuRef}
@@ -184,6 +182,9 @@ const Header = ({ cartCount = 0 }) => {
               aria-hidden={!isMobileMenuOpen}
               id="mobile-navigation"
             >
+
+
+              {/* Navigation Links */}
               <ul className="grm-nav-list">
                 {navItems.map((item, index) => (
                   <li key={index} className="grm-nav-item">
@@ -223,26 +224,6 @@ const Header = ({ cartCount = 0 }) => {
                   </a>
                 ))}
               </div>
-              
-              {/* Mobile Cart */}
-              <div className="grm-mobile-cart">
-                <button 
-                  className="grm-cart-button" 
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    // Trigger cart opening logic here
-                  }}
-                >
-                  <FiShoppingCart className="grm-cart-icon" />
-                  <span className="grm-cart-label">View Cart</span>
-                  {cartCount > 0 && (
-                    <span className="grm-cart-count">{cartCount}</span>
-                  )}
-                </button>
-                <div className="grm-cart-total">
-                  <span className="grm-cart-amount">$0.00</span>
-                </div>
-              </div>
             </nav>
 
             {/* Actions */}
@@ -254,16 +235,13 @@ const Header = ({ cartCount = 0 }) => {
                   onClick={() => {
                     // Trigger cart opening logic here
                   }}
+                  aria-label="Cart"
                 >
                   <FiShoppingCart className="grm-cart-icon" />
-                  <span className="grm-cart-label">Cart</span>
                   {cartCount > 0 && (
                     <span className="grm-cart-count">{cartCount}</span>
                   )}
                 </button>
-                <div className="grm-cart-total">
-                  <span className="grm-cart-amount">$0.00</span>
-                </div>
               </div>
 
               {/* Mobile Menu Toggle */}

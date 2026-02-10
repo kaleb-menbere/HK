@@ -1,9 +1,9 @@
 // src/pages/MenuPage.jsx
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import Header from '../../components/Header';
 import CategoryNav from '../../components/CategoryNav';
 import MenuItem from '../../components/MenuItem/MenuItem';
-import CartSidebar from '../../components/CartSidebar'; // Import from separate file
+import CartSidebar from '../../components/CartSidebar';
 import './MenuPage.css';
 import { useMenuData } from '../../hooks/useMenuData';
 import { FiFilter, FiGrid, FiList, FiShoppingCart } from 'react-icons/fi';
@@ -17,27 +17,30 @@ const MenuPage = () => {
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
   const [sortBy, setSortBy] = useState('default'); // 'default', 'price-low', 'price-high', 'name'
 
-  // Filter items by category
-  const filteredItems = selectedCategory === 'all' 
-    ? items 
-    : items.filter(item => item.categoryId === selectedCategory);
+  // Filter and sort items with useMemo to prevent unnecessary recalculations
+  const sortedItems = useMemo(() => {
+    // Filter items by category
+    const filteredItems = selectedCategory === 'all' 
+      ? items 
+      : items.filter(item => item.categoryId === selectedCategory);
 
-  // Sort items
-  const sortedItems = [...filteredItems].sort((a, b) => {
-    switch (sortBy) {
-      case 'price-low':
-        return a.price - b.price;
-      case 'price-high':
-        return b.price - a.price;
-      case 'name':
-        return a.name.localeCompare(b.name);
-      default:
-        return 0;
-    }
-  });
+    // Sort items
+    return [...filteredItems].sort((a, b) => {
+      switch (sortBy) {
+        case 'price-low':
+          return a.price - b.price;
+        case 'price-high':
+          return b.price - a.price;
+        case 'name':
+          return a.name.localeCompare(b.name);
+        default:
+          return 0;
+      }
+    });
+  }, [items, selectedCategory, sortBy]);
 
-  // Add item to cart
-  const addToCart = (item, quantity) => {
+  // Add item to cart with useCallback
+  const addToCart = useCallback((item, quantity) => {
     setCartItems(prev => {
       const existingItem = prev.find(cartItem => cartItem.id === item.id);
       if (existingItem) {
@@ -50,33 +53,46 @@ const MenuPage = () => {
         return [...prev, { ...item, quantity }];
       }
     });
-  };
+  }, []);
 
   // Remove item from cart
-  const removeFromCart = (itemId) => {
+  const removeFromCart = useCallback((itemId) => {
     setCartItems(prev => prev.filter(item => item.id !== itemId));
-  };
+  }, []);
 
   // Update item quantity
-  const updateQuantity = (itemId, quantity) => {
-    if (quantity <= 0) {
-      removeFromCart(itemId);
-    } else {
-      setCartItems(prev =>
-        prev.map(item =>
-          item.id === itemId ? { ...item, quantity } : item
-        )
+  const updateQuantity = useCallback((itemId, quantity) => {
+    setCartItems(prev => {
+      if (quantity <= 0) {
+        return prev.filter(item => item.id !== itemId);
+      }
+      return prev.map(item =>
+        item.id === itemId ? { ...item, quantity } : item
       );
-    }
-  };
+    });
+  }, []);
 
-  // Calculate cart total
-  const cartTotal = cartItems.reduce((total, item) => {
-    return total + (item.price * item.quantity);
-  }, 0);
+  // Calculate cart totals with useMemo
+  const { cartTotal, cartCount } = useMemo(() => {
+    const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const count = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+    return { cartTotal: total, cartCount: count };
+  }, [cartItems]);
 
-  // Calculate item count
-  const cartCount = cartItems.reduce((count, item) => count + item.quantity, 0);
+  // Handle category selection
+  const handleCategorySelect = useCallback((categoryId) => {
+    setSelectedCategory(categoryId);
+  }, []);
+
+  // Handle view mode change
+  const handleViewModeChange = useCallback((mode) => {
+    setViewMode(mode);
+  }, []);
+
+  // Handle sort change
+  const handleSortChange = useCallback((e) => {
+    setSortBy(e.target.value);
+  }, []);
 
   return (
     <div className="mnp-page">
@@ -105,52 +121,56 @@ const MenuPage = () => {
         </div>
       </section>
 
-      {/* Menu Controls */}
-      <div className="mnp-controls">
-        <div className="gnr-container">
-          <div className="mnp-controls__content">
-        <div className="mnp-view-toggle" data-view-mode={viewMode}>
-          <button 
-            className={`mnp-view-btn ${viewMode === 'grid' ? 'mnp-view-btn--active' : ''}`}
-            onClick={() => setViewMode('grid')}
-          >
-            <FiGrid />
-            <span>Grid</span>
-          </button>
-          <button 
-            className={`mnp-view-btn ${viewMode === 'list' ? 'mnp-view-btn--active' : ''}`}
-            onClick={() => setViewMode('list')}
-          >
-            <FiList />
-            <span>List</span>
-          </button>
-        </div>
-            
-            <div className="mnp-sort">
-              <FiFilter className="mnp-sort__icon" />
-              <select 
-                className="mnp-sort__select"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-              >
-                <option value="default">Sort by</option>
-                <option value="name">Name (A-Z)</option>
-                <option value="price-low">Price (Low to High)</option>
-                <option value="price-high">Price (High to Low)</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main Menu Content */}
       <main className="mnp-main">
         <div className="gnr-container">
-          <CategoryNav 
-            categories={categories} 
-            selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
-          />
+          {/* Sticky Category Navigation */}
+          <div className="mnp-category-sticky">
+            <CategoryNav 
+              categories={categories} 
+              selectedCategory={selectedCategory}
+              onSelectCategory={handleCategorySelect}
+            />
+          </div>
+
+          {/* Menu Controls - Now scrolls with content */}
+          <div className="mnp-controls">
+            <div className="mnp-controls__content">
+              <div className="mnp-view-toggle" data-view-mode={viewMode}>
+                <button 
+                  className={`mnp-view-btn ${viewMode === 'grid' ? 'mnp-view-btn--active' : ''}`}
+                  onClick={() => handleViewModeChange('grid')}
+                  aria-label="Grid view"
+                >
+                  <FiGrid />
+                  <span>Grid</span>
+                </button>
+                <button 
+                  className={`mnp-view-btn ${viewMode === 'list' ? 'mnp-view-btn--active' : ''}`}
+                  onClick={() => handleViewModeChange('list')}
+                  aria-label="List view"
+                >
+                  <FiList />
+                  <span>List</span>
+                </button>
+              </div>
+              
+              <div className="mnp-sort">
+                <FiFilter className="mnp-sort__icon" />
+                <select 
+                  className="mnp-sort__select"
+                  value={sortBy}
+                  onChange={handleSortChange}
+                  aria-label="Sort menu items"
+                >
+                  <option value="default">Sort by</option>
+                  <option value="name">Name (A-Z)</option>
+                  <option value="price-low">Price (Low to High)</option>
+                  <option value="price-high">Price (High to Low)</option>
+                </select>
+              </div>
+            </div>
+          </div>
           
           {loading ? (
             <div className="mnp-loading">
@@ -185,7 +205,7 @@ const MenuPage = () => {
         </div>
       </main>
 
-      {/* Cart Sidebar - Now using the separate component */}
+      {/* Cart Sidebar */}
       <CartSidebar 
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
@@ -196,9 +216,13 @@ const MenuPage = () => {
         itemCount={cartCount}
       />
 
-      {/* Cart Button */}
+      {/* Floating Cart Button (for mobile) */}
       {cartCount > 0 && (
-        <button className="mnp-cart-btn" onClick={() => setIsCartOpen(true)}>
+        <button 
+          className="mnp-cart-btn" 
+          onClick={() => setIsCartOpen(true)}
+          aria-label="Open cart"
+        >
           <FiShoppingCart />
           <span className="mnp-cart-btn__count">{cartCount}</span>
           <span className="mnp-cart-btn__total">${cartTotal.toFixed(2)}</span>
@@ -216,8 +240,12 @@ const MenuPage = () => {
                 <FaPhoneAlt />
                 <span>Call Now</span>
               </a>
-              <button className="mnp-footer__btn mnp-footer__btn--secondary" onClick={() => setIsCartOpen(true)}>
-                View Your Cart
+              <button 
+                className="mnp-footer__btn mnp-footer__btn--secondary" 
+                onClick={() => setIsCartOpen(true)}
+                disabled={cartCount === 0}
+              >
+                {cartCount > 0 ? 'View Your Cart' : 'Your Cart is Empty'}
               </button>
             </div>
           </div>
