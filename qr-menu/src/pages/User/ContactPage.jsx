@@ -18,7 +18,7 @@ const ContactPage = () => {
     {
       icon: <FaMapMarkerAlt />,
       title: 'Our Location',
-      details: ['123 Gourmet Street', 'Food City, FC 10001', 'United States'],
+      details: ['123 Kaleb Street', 'Food City, FC 10001', 'United States'],
       link: '#'
     },
     {
@@ -30,8 +30,8 @@ const ContactPage = () => {
     {
       icon: <FaEnvelope />,
       title: 'Email Address',
-      details: ['reservations@gourmet.com', 'info@gourmet.com'],
-      link: 'mailto:info@gourmet.com'
+      details: ['reservations@Kaleb.com', 'info@Kaleb.com'],
+      link: 'mailto:info@Kaleb.com'
     },
     {
       icon: <FaClock />,
@@ -215,7 +215,7 @@ const ContactPage = () => {
                   <div className="ctp-map__info">
                     <FaMapMarkerAlt className="ctp-map__icon" />
                     <div>
-                      <p className="ctp-map__address">123 Gourmet Street</p>
+                      <p className="ctp-map__address">123 Kaleb Street</p>
                       <p className="ctp-map__address">Food City, FC 10001</p>
                     </div>
                   </div>

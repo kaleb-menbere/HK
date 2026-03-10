@@ -170,7 +170,7 @@ const Header = ({ cartCount = 0 }) => {
                   setIsMobileMenuOpen(false);
                 }}
               >
-                <span className="grm-logo-main">Gourmet</span>
+                <span className="grm-logo-main">Kaleb</span>
                 <span className="grm-logo-sub">RESTAURANT</span>
               </a>
             </div>

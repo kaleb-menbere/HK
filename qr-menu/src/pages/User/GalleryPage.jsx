@@ -287,7 +287,7 @@ const GalleryPage = () => {
         <div className="gnr-container">
           <div className="glp-footer__content">
             <h2 className="glp-footer__title">Share Your Experience</h2>
-            <p className="glp-footer__text">Tag us in your photos using #GourmetRestaurant</p>
+            <p className="glp-footer__text">Tag us in your photos using #KalebRestaurant</p>
           </div>
         </div>
       </footer>

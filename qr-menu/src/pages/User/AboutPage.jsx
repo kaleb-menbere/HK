@@ -217,7 +217,7 @@ const AboutPage = () => {
                   <FaMapMarkerAlt className="abp-contact__icon" />
                   <div>
                     <h4>Location</h4>
-                    <p>123 Gourmet Street</p>
+                    <p>Kaleb Street</p>
                     <p>Food City, FC 10001</p>
                   </div>
                 </div>
@@ -236,7 +236,7 @@ const AboutPage = () => {
                   <div>
                     <h4>Reservations</h4>
                     <p>(555) 123-4567</p>
-                    <p>reservations@gourmet.com</p>
+                    <p>reservations@Kaleb.com</p>
                   </div>
                 </div>
               </div>

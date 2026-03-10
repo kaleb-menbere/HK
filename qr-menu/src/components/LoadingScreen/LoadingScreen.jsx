@@ -18,7 +18,7 @@ const LoadingScreen = () => {
               <path d="M7 16H17" stroke="#ff6b35" strokeWidth="2" strokeLinecap="round" />
             </svg>
           </div>
-          <h1 className="loading-screen__logo-text">Gourmet Restaurant</h1>
+          <h1 className="loading-screen__logo-text">Kaleb Restaurant</h1>
         </div>
         
         <div className="loading-screen__spinner">
